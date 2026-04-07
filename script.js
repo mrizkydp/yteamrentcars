@@ -162,11 +162,128 @@ document.getElementById('reservationForm').addEventListener('submit', function()
     }
 });
 
-// Testimonial cards animation
-const testimonialCards = document.querySelectorAll('.testimonial-card');
 
-testimonialCards.forEach((card, index) => {
-    card.style.animationDelay = `${index * 0.2}s`;
+const track = document.querySelector('.testimonial-track');
+let cards = document.querySelectorAll('.testimonial-card');
+const dotsContainer = document.querySelector('.testimonial-dots');
+
+let index = 0;
+let startX = 0;
+let autoSlide;
+
+/* ====== CLONE (INFINITE) ====== */
+const firstClones = [...cards].slice(0, 3).map(card => card.cloneNode(true));
+const lastClones = [...cards].slice(-3).map(card => card.cloneNode(true));
+
+lastClones.forEach(clone => track.prepend(clone));
+firstClones.forEach(clone => track.append(clone));
+
+cards = document.querySelectorAll('.testimonial-card');
+
+/* ====== SETTINGS ====== */
+function getVisible() {
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+}
+
+/* ====== DOTS ====== */
+function createDots() {
+    dotsContainer.innerHTML = '';
+    const total = cards.length - (getVisible() * 2);
+
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement('span');
+        dot.addEventListener('click', () => {
+            index = i;
+            updateSlide(true);
+        });
+        dotsContainer.appendChild(dot);
+    }
+}
+
+function updateDots() {
+    const dots = dotsContainer.querySelectorAll('span');
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    let realIndex = index % dots.length;
+    if (realIndex < 0) realIndex += dots.length;
+
+    if (dots[realIndex]) {
+        dots[realIndex].classList.add('active');
+    }
+}
+
+/* ====== SLIDE ====== */
+function updateSlide(instant = false) {
+    const card = document.querySelector('.testimonial-card');
+    const gap = parseInt(getComputedStyle(track).gap);
+
+    const width = card.offsetWidth + gap;
+
+    if (instant) {
+        track.style.transition = 'none';
+    } else {
+        track.style.transition = 'transform 0.4s ease';
+    }
+
+    track.style.transform = `translateX(-${(index + getVisible()) * width}px)`;
+
+    updateDots();
+}
+
+/* ====== INFINITE RESET ====== */
+track.addEventListener('transitionend', () => {
+    const visible = getVisible();
+    const total = cards.length;
+
+    if (index >= total - (visible * 2)) {
+        index = 0;
+        updateSlide(true);
+    }
+
+    if (index < 0) {
+        index = total - (visible * 2) - 1;
+        updateSlide(true);
+    }
 });
 
+/* ====== AUTO SLIDE ====== */
+function startAuto() {
+    autoSlide = setInterval(() => {
+        index++;
+        updateSlide();
+    }, 4000);
+}
+
+function stopAuto() {
+    clearInterval(autoSlide);
+}
+
+/* ====== SWIPE ====== */
+track.addEventListener('touchstart', (e) => {
+    stopAuto();
+    startX = e.touches[0].clientX;
+});
+
+track.addEventListener('touchend', (e) => {
+    let endX = e.changedTouches[0].clientX;
+    let diff = startX - endX;
+
+    if (diff > 50) index++;
+    if (diff < -50) index--;
+
+    updateSlide();
+    startAuto();
+});
+
+/* ====== INIT ====== */
+createDots();
+updateSlide(true);
+startAuto();
+
+window.addEventListener('resize', () => {
+    updateSlide(true);
+    createDots();
+});
 // Optional: Add more interactivity or animations as needed

@@ -20,7 +20,9 @@ body {
     color: var(--text-color);
 }
 
-/* NAVBAR */
+/* ========================
+   NAVBAR
+======================== */
 header {
     position: fixed;
     width: 100%;
@@ -28,23 +30,20 @@ header {
 }
 
 nav {
-    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+
     padding: 14px 5%;
     min-height: 70px;
-    z-index: 1000;
-    background: transparent;
 
+    background: transparent;
     transition: all 0.3s ease;
 }
 
 /* SCROLL EFFECT */
 nav.scrolled {
     padding: 6px 5%;
-    min-height: 70px;
 
     background: linear-gradient(
         to bottom,
@@ -60,22 +59,23 @@ nav.hide {
     transform: translateY(-100%);
 }
 
-nav.scrolled .logo img {
-    width: 48px;
-}
-
+/* ========================
+   LOGO
+======================== */
 .logo {
     display: flex;
     align-items: center;
-    justify-content: flex-start; 
 }
 
-/* LOGO */
 .logo img {
     width: 85px;
     height: auto;
     object-fit: contain;
     transition: 0.3s;
+}
+
+nav.scrolled .logo img {
+    width: 48px;
 }
 
 .brand-text {
@@ -87,30 +87,12 @@ nav.scrolled .logo img {
 }
 
 nav.scrolled .brand-text {
-    font-size: 1.1rem; 
+    font-size: 1.1rem;
 }
 
-
-/* Layar kecil (mobile) */
-@media screen and (max-width: 768px) {
-    .logo {
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .logo img {
-        width: 55px;
-     
-    }
-
-    .logo {
-        justify-content: left;
-        position: relative;
-    }
-}
-
-
-/* MENU */
+/* ========================
+   MENU DESKTOP
+======================== */
 .nav-links {
     display: flex;
     list-style: none;
@@ -118,7 +100,6 @@ nav.scrolled .brand-text {
 }
 
 .nav-links a {
-    position: relative;
     color: white;
     text-decoration: none;
     font-weight: 600;
@@ -127,11 +108,14 @@ nav.scrolled .brand-text {
 
 .nav-links a:hover {
     color: var(--accent-color);
-    text-shadow: 0 0 8px rgba(192,192,192,0.7),
-                 0 0 15px rgba(192,192,192,0.5);
+    text-shadow: 
+        0 0 8px rgba(192,192,192,0.7),
+        0 0 15px rgba(192,192,192,0.5);
 }
 
-/* BURGER */
+/* ========================
+   BURGER
+======================== */
 .burger {
     display: none;
     cursor: pointer;
@@ -145,29 +129,38 @@ nav.scrolled .brand-text {
     transition: 0.3s;
 }
 
-/* MOBILE */
+/* ========================
+   MOBILE NAVBAR
+======================== */
 @media (max-width: 768px) {
+
+    /* LOGO MOBILE */
+    .logo img {
+        width: 55px;
+    }
+
+    /* NAV MENU */
     .nav-links {
         position: absolute;
-        right: -100%;
         top: 70px;
-        width: 100%;
+        right: 0;
 
+        width: 100%;
         height: 100vh;
 
-        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(12px);
 
-        padding-top: 10px; /* 🔥 lebih rapat */
-        /* margin-top: 10px; ❌ hapus */
-
-        z-index: 999;
-
-        transition: 0.5s;
+        transform: translateX(100%);
+        transition: transform 0.4s ease;
     }
 
     .nav-links li {
-            margin: 20px 0;
+        margin: 20px 0;
         opacity: 0;
     }
 
@@ -175,16 +168,20 @@ nav.scrolled .brand-text {
         background: rgba(192,192,192,0.1);
     }
 
+    /* ACTIVE MENU */
+    .nav-active {
+        transform: translateX(0);
+    }
+
+    /* BURGER SHOW */
     .burger {
         display: block;
     }
-
-    .nav-active {
-        right: 0;
-    }
 }
 
-/* ANIMATION */
+/* ========================
+   BURGER ANIMATION
+======================== */
 .toggle .line1 {
     transform: rotate(-45deg) translate(-5px,6px);
 }
@@ -195,6 +192,7 @@ nav.scrolled .brand-text {
     transform: rotate(45deg) translate(-5px,-6px);
 }
 
+/* LINK ANIMATION */
 @keyframes navFade {
     from {
         opacity: 0;
@@ -206,9 +204,11 @@ nav.scrolled .brand-text {
     }
 }
 
-/* CONTENT */
+/* ========================
+   CONTENT GLOBAL
+======================== */
 main {
-    padding-top: 100px;
+    padding-top: 0;
 }
 
 section {
@@ -221,65 +221,86 @@ h1, h2, h3 {
     color: var(--accent-color);
 }
 
+/* ========================
+   HERO
+======================== */
 .hero {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+    position: relative;
+
+    height: 100vh;
+    padding-top: var(--nav-height); /* 🔥 FIX TABRAKAN NAVBAR */
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
+/* BACKGROUND */
 .hero-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  transition: transform 0.6s ease-out;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+
+    transition: transform 0.6s ease-out;
 }
 
+/* OVERLAY */
 .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.5),
-    rgba(0,0,0,0.75)
-  );
-  z-index: 1;
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,0.75)
+    );
+
+    z-index: 1;
 }
 
+/* CONTENT */
 .hero-content {
-  position: relative;
-  z-index: 2;
-  color: white;
-  padding: 0 1rem;
+    position: relative;
+    z-index: 2;
+    color: white;
+    padding: 0 1rem;
+    transform: translateY(60px);
 }
 
 .hero h1 {
-  font-size: 2.6rem;
-  line-height: 1.3;
-  letter-spacing: 1px;
-  text-shadow: 0 5px 20px rgba(0,0,0,0.5);
-  margin-bottom: 20px;
+    font-size: 2.6rem;
+    line-height: 1.3;
+    letter-spacing: 1px;
+    text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    margin-bottom: 25px;
 }
 
 .hero p {
-  font-size: 1.15rem;
-  color: #d1d1d1;
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  margin-bottom: 30px;
+    font-size: 1.15rem;
+    color: #d1d1d1;
+
+    max-width: 600px;
+    margin: 0 auto 40px;
 }
 
+/* ========================
+   TEXT UTIL
+======================== */
 .highlight {
     color: var(--accent-color);
 }
 
+/* ========================
+   ANIMATION
+======================== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -291,22 +312,23 @@ h1, h2, h3 {
     }
 }
 
+/* ========================
+   CTA BUTTON
+======================== */
 .cta-button {
     display: inline-block;
-    padding: 15px 15px;
-    border-radius: 15px;
+
+    padding: 18px;
+    border-radius: 8px;
+
     position: relative;
     overflow: hidden;
-    background: linear-gradient(
-        135deg,
-        #C0C0C0,
-        #E5E5E5
-    );
 
+    background: linear-gradient(135deg, #C0C0C0, #E5E5E5);
     color: black;
+
     font-weight: 600;
     text-decoration: none;
-    letter-spacing: 1px;
 
     transition: all 0.3s ease;
     box-shadow: 0 8px 20px rgba(192,192,192,0.25);
@@ -319,6 +341,7 @@ h1, h2, h3 {
     color: #aaa;
 }
 
+/* Shine effect */
 .cta-button::after {
     content: "";
     position: absolute;
@@ -326,36 +349,31 @@ h1, h2, h3 {
     left: -75%;
     width: 50%;
     height: 100%;
+
     background: linear-gradient(
         120deg,
         transparent,
         rgba(255,255,255,0.4),
         transparent
     );
+
     transform: skewX(-20deg);
 }
 
-/* animasi saat hover */
+/* HOVER */
 .cta-button:hover::after {
     left: 120%;
     transition: 0.7s;
 }
-/* HOVER */
+
 .cta-button:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 25px rgba(192,192,192,0.3);
 }
 
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
-  }
-}
-
+/* ========================
+   BADGE
+======================== */
 .section-badge {
     display: inline-block;
     font-size: 0.75rem;
@@ -366,44 +384,140 @@ h1, h2, h3 {
 }
 
 .reservation-badge {
-    display: block;          /* ubah jadi block supaya bisa margin auto */
-    width: max-content;      /* supaya lebar sesuai konten */
-    margin: 0 auto 1rem auto;/* center horizontal */
+    display: block;
+    width: max-content;
+    margin: 0 auto 1rem auto;
 }
 
+/* ========================
+   MOBILE
+======================== */
+@media (max-width: 768px) {
+
+    /* NAV HEIGHT FIX */
+    :root {
+        --nav-height: 100px;
+    }
+
+    /* SECTION */
+    section {
+        padding: 3rem 1.5rem;
+    }
+
+    /* HERO */
+    .hero {
+        height: auto; /* biar tidak kepotong */
+        padding: calc(var(--nav-height) + 2rem) 1.5rem 3rem;
+    }
+
+    .hero-content {
+        transform: translateY(0); /* 🔥 reset */
+    }
+    
+    .hero h1 {
+        font-size: 1.9rem;
+        line-height: 1.4;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    /* CTA */
+    .cta-button {
+        width: 100%;
+        text-align: center;
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+
+    .cta-note {
+        font-size: 0.75rem;
+    }
+
+    /* HEADING */
+    h1, h2, h3 {
+        margin-bottom: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    /* BADGE */
+    .section-badge {
+        font-size: 0.7rem;
+        letter-spacing: 1.5px;
+    }
+}
+
+/* ========================
+   ABOUT SECTION
+======================== */
 .about {
-    background-color: var(--secondary-color);
+    position: relative;
+    background: linear-gradient(
+        to bottom,
+        #000000 0%,
+        #0a0a0a 30%,
+        #1a1a1a 100%
+    );
+
     text-align: center;
     padding: 5rem 10%;
 }
 
+/* TRANSISI DARI HERO */
+.about::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        #000000
+    );
+}
+
+/* TITLE */
 .about h2 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
 }
 
+/* DESCRIPTION */
 .about-description {
     max-width: 700px;
     margin: 0 auto 4rem;
+
     color: #cfcfcf;
     line-height: 1.7;
-    text-align: justify;        /* rata kanan-kiri */
-    text-align-last: center;    /* baris terakhir tetap di tengah */
+
+    text-align: justify;
+    text-align-last: center;
 }
 
+/* GRID */
 .about-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
 
+/* CARD */
 .about-card {
-    background: linear-gradient(
-        145deg,
-        #0f0f0f,
-        #1a1a1a
-    );
-
+    background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
     border: 1px solid rgba(192,192,192,0.08);
 
     border-radius: 14px;
@@ -412,6 +526,7 @@ h1, h2, h3 {
     transition: all 0.35s ease;
 }
 
+/* HOVER */
 .about-card:hover {
     transform: translateY(-10px) scale(1.02);
 
@@ -420,8 +535,10 @@ h1, h2, h3 {
         0 0 15px rgba(192,192,192,0.1);
 }
 
+/* ICON */
 .about-card i {
     display: inline-block;
+
     font-size: 2.5rem;
     color: var(--accent-color);
 
@@ -433,6 +550,7 @@ h1, h2, h3 {
     background: rgba(192,192,192,0.08);
 }
 
+/* TEXT */
 .about-card h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -444,34 +562,45 @@ h1, h2, h3 {
     line-height: 1.6;
 }
 
-/* =======================
-   MOBILE ABOUT SECTION
-======================= */
+/* ========================
+   MOBILE ABOUT
+======================== */
 @media (max-width: 768px) {
 
     .about {
-        padding: 3rem 5%;
+        padding: 3rem 1.5rem;
     }
 
     .about h2 {
         font-size: 1.8rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
+    /* 🔥 FIX readability */
     .about-description {
         font-size: 0.9rem;
+        line-height: 1.6;
+
+        text-align: left; /* 🔥 lebih nyaman dibaca */
+        text-align-last: left;
+
         margin-bottom: 2.5rem;
         padding: 0 5px;
     }
 
+    /* GRID */
     .about-cards {
-        grid-template-columns: 1fr; /* 1 kolom */
-        gap: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
     }
 
+    /* CARD */
     .about-card {
         padding: 1.5rem;
         border-radius: 12px;
+
+        /* 🔥 tambahan depth */
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
     }
 
     .about-card i {
@@ -490,38 +619,116 @@ h1, h2, h3 {
     }
 }
 
+/* ========================
+   CARS SECTION
+======================== */
 .cars {
+    position: relative;
+
     text-align: center;
-    background-color: var(--primary-color);
+
+    /* 🔥 gradient biar nyatu dari about */
+    background: linear-gradient(
+        to bottom,
+        #1a1a1a 0%,
+        #0a0a0a 40%,
+        #000000 100%
+    );
+
     padding: 5rem 10%;
 }
 
+/* 🔥 TRANSISI DARI ABOUT */
+.cars::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        #1a1a1a
+    );
+}
+
+/* TITLE */
 .cars h2 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
 }
 
+/* SUBTEXT */
+.section-sub {
+    text-align: center;
+    max-width: 600px;
+    margin: 10px auto 40px;
+    color: #bfbfbf;
+    font-size: 0.95rem;
+}
+
+/* ========================
+   CATEGORY
+======================== */
+.car-category {
+    margin: 4rem 0;
+}
+
+.car-category h2 {
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+
+    margin-bottom: 2rem;
+    color: white;
+
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.car-category h2::after {
+    content: "";
+    width: 50px;
+    height: 3px;
+    background: var(--accent-color);
+
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+
+    border-radius: 2px;
+}
+
+/* ========================
+   GRID
+======================== */
 .car-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
 
+/* ========================
+   CARD
+======================== */
 .car-card {
-    background: linear-gradient(
-        145deg,
-        #0f0f0f,
-        #1a1a1a
-    );
+    background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
 
     border: 1px solid rgba(192,192,192,0.08);
-
     border-radius: 14px;
+
     overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     transition: all 0.35s ease;
 }
 
+/* 🔥 HOVER */
 .car-card:hover {
     transform: translateY(-10px) scale(1.02);
 
@@ -530,45 +737,48 @@ h1, h2, h3 {
         0 0 15px rgba(192,192,192,0.1);
 }
 
-.car-card img {
+/* IMAGE */
+.car-image-wrapper {
     width: 100%;
-    height: 220px;
-    object-fit: cover;
+    height: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.car-image-wrapper img {
+    height: 170px;
+    width: auto;
+
+    object-fit: contain;
     transition: transform 0.5s ease;
-    display: block;
 }
 
 .car-card:hover img {
     transform: scale(1.05);
 }
 
-.car-card h3, .car-card p {
-    padding: 1rem;
-    margin: 0;
-}
-
+/* TEXT */
 .car-card h3 {
-    font-size: 1.3rem;
-    color: white;
     padding: 1rem;
-    margin-bottom: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
 }
 
 .car-card p {
+    padding: 0 1rem;
     font-size: 1rem;
     color: var(--text-color);
 }
 
+/* BUTTON */
 .rent-button {
     display: block;
 
-    background: linear-gradient(
-        135deg,
-        #C0C0C0,
-        #E5E5E5
-    );
-
+    background: linear-gradient(135deg, #C0C0C0, #E5E5E5);
     color: black;
+
     text-align: center;
 
     padding: 12px;
@@ -582,65 +792,76 @@ h1, h2, h3 {
     transition: all 0.3s ease;
 }
 
-/*
-.view-all {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    margin-top: 40px;
-}
-
-/* .view-all-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 12px 28px;
-
-    border: 1px solid rgba(192,192,192,0.3);
-    border-radius: 20px;
-
-    color: white;
-    text-decoration: none;
-
-    transition: all 0.3s ease;
-} */
-
-/* arrow 
-.view-all-btn .arrow {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-/* hover effect */
-/*.view-all-btn:hover .arrow {
-    transform: translateX(6px);
-}
-
-.view-all-btn:hover {
-    background: rgba(192,192,192,0.08);
-    border-color: var(--accent-color);
-
-    transform: translateY(-3px);
-
-    box-shadow: 
-        0 10px 25px rgba(0,0,0,0.4),
-        0 0 10px rgba(192,192,192,0.2);
-}
-*/
 .rent-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(192,192,192,0.3);
 }
 
+/* ========================
+   MOBILE
+======================== */
+@media (max-width: 768px) {
 
-.section-sub {
-    text-align: center;
-    max-width: 600px;
-    margin: 10px auto 40px;
-    color: #bfbfbf;
-    font-size: 0.95rem;
+    .cars {
+        padding: 3rem 1.5rem;
+    }
+
+    .cars h2 {
+        font-size: 1.8rem;
+    }
+
+    .section-sub {
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+    }
+
+    /* CATEGORY */
+    .car-category {
+        margin: 2.5rem 0;
+    }
+
+    .car-category h2 {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* GRID */
+    .car-grid {
+        grid-template-columns: repeat(2, 1fr); /* 🔥 2 kolom */
+        gap: 1rem;
+    }
+
+    /* CARD */
+    .car-card {
+        border-radius: 12px;
+
+        /* 🔥 depth biar tidak flat */
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
+     .car-image-wrapper {
+        height: 140px; /* kontrol container saja */
+    }
+
+    .car-image-wrapper img {
+        max-width: 100%;
+        max-height: 100%;
+
+        width: auto;
+        height: auto;
+
+        object-fit: contain; /* 🔥 penting */
+    }
+
+    .car-card h3 {
+        font-size: 1rem;
+        padding: 0.7rem;
+    }
+
+    .rent-button {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
 }
 
 .testimonials {
@@ -650,95 +871,111 @@ h1, h2, h3 {
 }
 
 .testimonials h2 {
-    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
 }
 
+/* CONTAINER */
 .testimonial-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+/* TRACK */
+.testimonial-track {
     display: flex;
-    justify-content: space-between;
     gap: 2rem;
-    perspective: 1000px;
+    transition: transform 0.4s ease;
 }
 
+/* CARD */
 .testimonial-card {
+    flex: 0 0 calc((100% - 4rem) / 3);
     background-color: var(--secondary-color);
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 2rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-}
-
-.testimonial-card:hover {
-    transform: rotateY(10deg);
-}
-
-.avatar {
-    width: 140px;
-    height: 140px;
-    border-radius: 10%;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    border: 3px solid var(--accent-color);
+    text-align: center;
+    transition: transform 0.3s;
+    gap: 0.5rem;
 }
 
 .testimonial-card h3 {
-    margin-bottom: 0.5rem;
+    margin: 0.5rem 0 0.2rem;
+    font-size: 1.2rem;
 }
 
 .role {
-    color: var(--accent-color);
-    font-style: italic;
+    font-size: 0.9rem;
+    opacity: 0.7;
     margin-bottom: 1rem;
 }
 
 .quote {
     font-style: italic;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
+    line-height: 1.6;
+    color: #ccc;
+    min-height: 80px; /* biar tinggi konsisten */
 }
 
 .rating {
-    color: var(--accent-color);
+    margin-top: auto; /* dorong ke bawah */
+    font-size: 1rem;
+    letter-spacing: 2px;
 }
 
-@media screen and (max-width: 768px) {
-    .testimonial-container {
-        flex-direction: column;
+.testimonial-card:hover {
+    transform: scale(1.05);
+}
+
+/* AVATAR */
+.avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10%;
+    margin-bottom: 1rem;
+}
+
+/* DOTS */
+.testimonial-dots {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.testimonial-dots span {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.testimonial-dots span.active {
+    background: var(--accent-color);
+    transform: scale(1.3);
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+    .testimonial-card {
+        flex: 0 0 calc((100% - 2rem) / 2);
     }
 }
 
-/* Animasi untuk testimonial cards */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+/* MOBILE */
+@media (max-width: 768px) {
+    .testimonial-track {
+        gap: 1rem;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    .testimonial-card {
+        flex: 0 0 100%;
     }
 }
-
-.testimonial-card {
-    animation: fadeInUp 0.6s ease-out;
-    animation-fill-mode: both;
-}
-
-.testimonial-card:nth-child(1) {
-    animation-delay: 0.2s;
-}
-
-.testimonial-card:nth-child(2) {
-    animation-delay: 0.4s;
-}
-
-.testimonial-card:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
 
 .contact {
     background-color: var(--secondary-color);
@@ -964,32 +1201,4 @@ footer {
     font-size: 16px;
     font-weight: bold;
     color: white;
-}
-
-/* Container utama */
-.car-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* desktop fleksibel */
-    gap: 2rem;
-}
-
-/* Tablet: 3 card per baris */
-@media (max-width: 1024px) and (min-width: 641px) {
-    .car-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-    }
-}
-
-/* Mobile: 2 card per baris */
-@media (max-width: 640px) {
-    .car-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-
-    /* Sesuaikan tinggi gambar supaya proporsional */
-    .car-card img {
-        height: 180px;
-    }
 }
