@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
 
 :root {
-    --primary-color: #000000;      /* Hitam utama */
-    --secondary-color: #1a1a1a;    /* Hitam agak soft */
-    --accent-color: #C0C0C0;       /* Silver */
-    --text-color: #ffffff;         /* Putih */
-    --text-color-dark: #A8A8A8;    /* Abu silver */
+    --primary-color: #000000;     
+    --secondary-color: #1a1a1a;   
+    --accent-color: #C0C0C0;       
+    --text-color: #ffffff;         
+    --text-color-dark: #A8A8A8;    
 }
 
 * {
@@ -915,11 +915,11 @@ h1, h2, h3 {
     margin: 1rem 0;
     line-height: 1.6;
     color: #ccc;
-    min-height: 80px; /* biar tinggi konsisten */
+    min-height: 80px;
 }
 
 .rating {
-    margin-top: auto; /* dorong ke bawah */
+    margin-top: auto; 
     font-size: 1rem;
     letter-spacing: 2px;
 }
